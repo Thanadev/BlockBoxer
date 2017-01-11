@@ -28,7 +28,6 @@ public class Cell : MonoBehaviour {
 			occupantAvatar.transform.position = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
 			occupant = (Placeable) boxer.model;
 			boxer.Coordinates = this.coordinates;
-			Debug.Log(coordinates + " / " + boxer.Coordinates);
 		}
 
 		return value;

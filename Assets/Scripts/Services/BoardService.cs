@@ -20,13 +20,19 @@ public class BoardService {
 	}
 
 	public void GenerateBoard () {
+		// World positionning vars
 		int xAxis = 0;
 		int zAxis = 0;
+
+		// Array indexes vars
 		int x = 0;
 		int y = 0;
+
+		// Object related vars
 		Vector3 position;
 		GameObject instance;
 
+		// Loop through the world to put the board in a correct place for the camera
 		for (zAxis = -7; zAxis <= 5; zAxis++) {
 			y = 0;
 			for (xAxis = -6; xAxis <= 6; xAxis++) {
@@ -49,6 +55,9 @@ public class BoardService {
 		}
 	}
 
+	/**
+	 * 	Instantiate all the board pieces : boxer and enemies
+	 */
 	public void PopulateBoard (Boxer player, EnemyController[] enemies) {
 		Placeable toSpawn;
 

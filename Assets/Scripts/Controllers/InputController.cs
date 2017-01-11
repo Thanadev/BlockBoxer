@@ -22,7 +22,8 @@ public class InputController : MonoBehaviour {
 				Cell cell = hit.transform.GetComponent<Cell>();
 
 				if (MovementService.isMoveValid(start, cell.Coordinates)) {
-					cell.EnterPlayer(ref gameC.boxer);
+					gameC.CurrentPlayer.GainScore(cell.EnterPlayer(ref gameC.boxer));
+					gameC.PlayerPlayed();
 				}
 			}
 		}
