@@ -4,13 +4,40 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	[Header("Entities")]
+	public PlayerController boxer;
+	public EnemyController[] enemies;
+
+	[Header("Blocks")]
+	public GameObject dirtBlock;
+	public GameObject grassBlock;
+
+	private static GameController instance = null;
+	private BoardService boardService;
+	private Player[] players;
+
+	void Awake () {
+		if (instance != null) {
+			this.enabled = false;
+		} else {
+			instance = this;
+		}
 	}
-	
-	// Update is called once per frame
+
+	void Start () {
+		boardService = new BoardService(dirtBlock, grassBlock);
+		boardService.PopulateBoard(boxer.model, enemies);
+	}
+		
 	void Update () {
 		
+	}
+
+	public static GameController GetInstance () {
+		return instance;
+	}
+
+	public void RegisterBoxer (PlayerController controller) {
+		boxer = controller;
 	}
 }
