@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour {
 
+	private static InputController instance = null;
 	private GameController gameC;
 
-	// Use this for initialization
+	void Awake () {
+		if (instance == null) {
+			instance = this;
+		} else {
+			this.enabled = false;
+		}
+	}
+
 	void Start () {
 		gameC = GameController.GetInstance();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetMouseButtonDown(0)) {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -27,5 +34,13 @@ public class InputController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public static InputController GetInstance () {
+		return instance;
+	}
+
+	public void Desactivate () {
+		this.enabled = false;
 	}
 }

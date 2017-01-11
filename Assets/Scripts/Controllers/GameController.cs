@@ -14,8 +14,12 @@ public class GameController : MonoBehaviour {
 
 	private static GameController instance = null;
 
+	private int maxScore = 500;
+
 	private GuiController guiC;
 	private BoardService boardService;
+	private InputController inputC;
+
 	private Player[] players;
 	private Player currentPlayer;
 
@@ -37,6 +41,7 @@ public class GameController : MonoBehaviour {
 		boardService = new BoardService(dirtBlock, grassBlock);
 		boardService.PopulateBoard(boxer.model, enemies);
 		guiC = GuiController.GetInstance();
+		inputC = InputController.GetInstance();
 	}
 		
 	void Update () {
@@ -56,12 +61,27 @@ public class GameController : MonoBehaviour {
 	 */
 	public void PlayerPlayed () {
 		guiC.RefreshScores();
+
+		if (PlayerHasWon()) {
+			inputC.Desactivate();
+			guiC.DisplayVictory();
+		}
 		
 		if (currentPlayer == players[0]) {
 			currentPlayer = players[1];
 		} else {
 			currentPlayer = players[0];
 		}
+	}
+
+	private bool PlayerHasWon () {
+		bool win = false;
+
+		if (currentPlayer.Score >= maxScore) {
+			win = true;
+		}
+
+		return win;
 	}
 
 	public Player CurrentPlayer {

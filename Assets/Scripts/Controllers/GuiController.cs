@@ -7,6 +7,7 @@ public class GuiController : MonoBehaviour {
 
 	public Text score1;
 	public Text score2;
+	public GameObject victory;
 
 	private static GuiController instance = null;
 
@@ -16,6 +17,7 @@ public class GuiController : MonoBehaviour {
 	void Awake () {
 		if (instance == null) {
 			instance = this;
+			victory.SetActive(false);
 		} else {
 			this.enabled = false;
 		}
@@ -32,6 +34,11 @@ public class GuiController : MonoBehaviour {
 
 	public static GuiController GetInstance () {
 		return instance;
+	}
+
+	public void DisplayVictory () {
+		victory.GetComponentInChildren<Text>().text = "Player " + gameC.CurrentPlayer.Name + " has won !";
+		victory.SetActive(true);
 	}
 
 	public void RefreshScores () {
