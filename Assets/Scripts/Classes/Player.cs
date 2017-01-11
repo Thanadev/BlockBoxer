@@ -5,14 +5,24 @@ using UnityEngine;
 public class Player {
 	protected int score;
 	protected string name;
+	protected Combo combo;
 
 	public Player (string name) {
 		this.score = 0;
 		this.name = name;
+		this.combo = null;
 	}
 
 	public void GainScore (int addedScore) {
 		score += addedScore;
+
+		if (addedScore != 0) {
+			if (combo == null || addedScore != combo.EnemyValue) {
+				combo = new Combo(addedScore);
+			} else {
+				score += combo.addOneMove();
+			}
+		}
 	}
 
 	public int Score {
