@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighscoreService : MonoBehaviour {
+public class HighscoreService {
+	private SaveFile file;
 
-	// Use this for initialization
-	void Start () {
-		
+	public HighscoreService (SaveFile file) {
+		this.file = file;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public int LoadHighscore () {
+		return file.highScore;
+	}
+
+	public bool SaveHighscore (int highScore) {
+		bool newHigh = false;
+
+		if (file.highScore > highScore) {
+			file.highScore = highScore;
+			newHigh = true;
+		}
+
+		return newHigh;
 	}
 }

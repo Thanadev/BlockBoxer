@@ -12,12 +12,16 @@ public class GameController : MonoBehaviour {
 	public GameObject dirtBlock;
 	public GameObject grassBlock;
 
+	[Header("Saving")]
+	public SaveFile saveFile;
+
 	private static GameController instance = null;
 
 	private int maxScore = 500;
 
 	private GuiController guiC;
 	private BoardService boardService;
+	private HighscoreService highscoreService;
 	private InputController inputC;
 
 	private Player[] players;
@@ -40,8 +44,11 @@ public class GameController : MonoBehaviour {
 	void Start () {
 		boardService = new BoardService(dirtBlock, grassBlock);
 		boardService.PopulateBoard(boxer.model, enemies);
+		highscoreService = new HighscoreService(saveFile);
 		guiC = GuiController.GetInstance();
 		inputC = InputController.GetInstance();
+
+		guiC.DisplayHighscore(highscoreService.LoadHighscore());
 	}
 		
 	void Update () {
@@ -64,6 +71,11 @@ public class GameController : MonoBehaviour {
 
 		if (PlayerHasWon()) {
 			inputC.Desactivate();
+
+			if (highscoreService.SaveHighscore(currentPlayer.History.Moves.Count)) {
+				guiC.DisplayNewHighscore(highscoreService.LoadHighscore());
+			}
+
 			guiC.DisplayVictory();
 		}
 		

@@ -52,4 +52,10 @@ public class Player {
 			return this.name;
 		}
 	}
+
+	public ScoreHistory History {
+		get {
+			return this.history;
+		}
+	}
 }

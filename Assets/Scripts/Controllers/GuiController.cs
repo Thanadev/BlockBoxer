@@ -7,7 +7,12 @@ public class GuiController : MonoBehaviour {
 
 	public Text score1;
 	public Text score2;
+
 	public GameObject victory;
+	public Text victoryText;
+	public Text newHighscoreText;
+
+	public Text highscoreText;
 
 	private static GuiController instance = null;
 
@@ -18,6 +23,7 @@ public class GuiController : MonoBehaviour {
 		if (instance == null) {
 			instance = this;
 			victory.SetActive(false);
+			newHighscoreText.gameObject.SetActive(false);
 		} else {
 			this.enabled = false;
 		}
@@ -36,9 +42,18 @@ public class GuiController : MonoBehaviour {
 		return instance;
 	}
 
+	public void DisplayHighscore (int highscore) {
+		highscoreText.text = highscore + " déplacements";
+	}
+
 	public void DisplayVictory () {
-		victory.GetComponentInChildren<Text>().text = "Player " + gameC.CurrentPlayer.Name + " has won !";
+		victory.GetComponentInChildren<Text>().text = "Le joueur " + gameC.CurrentPlayer.Name + " a gagné !";
 		victory.SetActive(true);
+	}
+
+	public void DisplayNewHighscore (int newHighscore) {
+		newHighscoreText.text = "L'ancien meilleur score a été battu !\nNouveau Highscore : " + newHighscore + " déplacement(s)";
+		newHighscoreText.gameObject.SetActive(true);
 	}
 
 	public void RefreshScores () {
