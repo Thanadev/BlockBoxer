@@ -8,4 +8,10 @@ public class PlayerMove {
 	public PlayerMove (int score) {
 		this.score = score;
 	}
+
+	public int Score {
+		get {
+			return this.score;
+		}
+	}
 }

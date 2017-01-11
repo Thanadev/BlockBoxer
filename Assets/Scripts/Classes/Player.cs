@@ -6,16 +6,22 @@ public class Player {
 	protected int score;
 	protected string name;
 	protected Combo combo;
+	protected ScoreHistory history;
 
 	public Player (string name) {
 		this.score = 0;
 		this.name = name;
 		this.combo = null;
+		this.history = new ScoreHistory();
 	}
 
 	public void GainScore (int addedScore) {
+		int baseScore = score;
+
+		// Add score
 		score += addedScore;
 
+		// Combo
 		if (addedScore != 0) {
 			if (combo == null || addedScore != combo.EnemyValue) {
 				combo = new Combo(addedScore);
@@ -23,6 +29,9 @@ public class Player {
 				score += combo.addOneMove();
 			}
 		}
+
+		// Record in history
+		history.addMove(score - baseScore);
 	}
 
 	public int Score {

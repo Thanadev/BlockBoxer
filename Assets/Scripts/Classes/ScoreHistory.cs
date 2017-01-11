@@ -2,15 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ScoreHistory : MonoBehaviour {
+public class ScoreHistory {
+	private List<PlayerMove> moves;
 
-	// Use this for initialization
-	void Start () {
-		
+	public ScoreHistory ()
+	{
+		moves = new List<PlayerMove>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
 		
+	public void addMove (int score) {
+		moves.Add(new PlayerMove(score));
+	}
+
+	public List<PlayerMove> Moves {
+		get {
+			return this.moves;
+		}
 	}
 }
